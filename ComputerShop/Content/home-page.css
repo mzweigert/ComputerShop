@@ -1,0 +1,12 @@
+﻿@font-face
+{
+    font-family: Orbitron;
+    src: url(../fonts/orbitron-black.ttf);
+}
+
+.main-caption 
+{
+    color: black;
+    font-family: Orbitron, sans-serif;
+    font-size: 92px;
+}

@@ -1,0 +1,45 @@
+﻿body {
+    background: url("images/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    padding-top: 100px;
+    padding-bottom: 20px;
+
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 295px;
+}
+
+  .navbar-searchbox 
+  {
+    max-width: 295px;
+  }
+
+.alert-phrase
+{
+    max-width: 295px;
+    margin-top: 5px;
+    padding: 7px;
+    margin-bottom: 0px;
+}
+
