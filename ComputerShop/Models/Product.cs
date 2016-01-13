@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComputerShop.Models
+namespace ComputerShop.DBModels
 {
     using System;
     using System.Collections.Generic;
@@ -17,14 +17,14 @@ namespace ComputerShop.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.Baskets = new HashSet<Basket>();
+            this.Basket = new HashSet<Basket>();
         }
     
-        public int idProduct { get; set; }
+        public long ProductId { get; set; }
         public string product_type { get; set; }
-        public DateTime production_date { get; set; }
+        public System.DateTime production_date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Basket> Baskets { get; set; }
+        public virtual ICollection<Basket> Basket { get; set; }
     }
 }

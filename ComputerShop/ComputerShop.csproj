@@ -192,71 +192,82 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Address.cs">
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Models\Basket.cs">
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ComputerShopModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComputerShopModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ComputerShopModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ComputerShopModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ComputerShopModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Models\Customer.cs">
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Address.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Basket.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CSModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CSModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CSModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Member.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberClaim.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\MemberLogin.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Purchase.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>CSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Purchase.cs">
-      <DependentUpon>ComputerShopModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Validators\Username.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\home-page.css" />
-    <Content Include="Models\ComputerShopModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ComputerShopModel.edmx</DependentUpon>
-      <LastGenOutput>ComputerShopModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\ComputerShopModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ComputerShopModel.edmx</DependentUpon>
-      <LastGenOutput>ComputerShopModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Register.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\CSModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CSModel.edmx</DependentUpon>
+      <LastGenOutput>CSModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CSModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CSModel.edmx</DependentUpon>
+      <LastGenOutput>CSModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -264,15 +275,15 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Models\ComputerShopModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ComputerShopModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\ComputerShopModel.edmx.diagram">
-      <DependentUpon>ComputerShopModel.edmx</DependentUpon>
-    </Content>
     <Content Include="fonts\Pacifico.ttf" />
     <Content Include="fonts\orbitron-black.ttf" />
+    <EntityDeploy Include="Models\CSModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CSModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CSModel.edmx.diagram">
+      <DependentUpon>CSModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\PagesScripts\layout.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -286,7 +297,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -335,6 +348,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

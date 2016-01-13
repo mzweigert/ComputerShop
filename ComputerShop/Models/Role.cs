@@ -7,27 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComputerShop.Models
+namespace ComputerShop.DBModels
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Role
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public Role()
         {
-            this.Purchases = new HashSet<Purchase>();
+            this.Member = new HashSet<Member>();
         }
     
-        public int idCustomer { get; set; }
-        public Nullable<int> idAddress { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public System.DateTime join_date { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
     
-        public virtual Address Address { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Purchase> Purchases { get; set; }
+        public virtual ICollection<Member> Member { get; set; }
     }
 }

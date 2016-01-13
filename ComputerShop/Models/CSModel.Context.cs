@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ComputerShop.Models
+namespace ComputerShop.DBModels
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ComputerShopEntities : DbContext
+    public partial class ComputerShopDBEntities : DbContext
     {
-        public ComputerShopEntities()
-            : base("name=ComputerShopEntities")
+        public ComputerShopDBEntities()
+            : base("name=ComputerShopDBEntities")
         {
         }
     
@@ -25,10 +25,13 @@ namespace ComputerShop.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Address> Addresses { get; set; }
-        public virtual DbSet<Basket> Baskets { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<Purchase> Purchases { get; set; }
+        public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<Basket> Basket { get; set; }
+        public virtual DbSet<Member> Member { get; set; }
+        public virtual DbSet<MemberClaim> MemberClaim { get; set; }
+        public virtual DbSet<MemberLogin> MemberLogin { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Purchase> Purchase { get; set; }
+        public virtual DbSet<Role> Role { get; set; }
     }
 }

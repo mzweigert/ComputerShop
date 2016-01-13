@@ -37,10 +37,10 @@ namespace ComputerShop.Controllers
         {
             ViewBag.Phrase = phrase;
 
-            if (phrase != null)
-                using (var context = new ComputerShopEntities())
+           if (phrase != null)
+                using (var context = new ApplicationDbContext())
                 {
-                    var products = from m in context.Products where m.product_type.Contains(phrase) select m;
+                    var products = from m in context.Product where m.product_type.Contains(phrase) select m;
                     
                     return View(products.ToList());
                 }

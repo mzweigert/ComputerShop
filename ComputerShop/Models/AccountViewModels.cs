@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using ComputerShop.Validators;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ComputerShop.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -49,9 +54,9 @@ namespace ComputerShop.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]
@@ -64,6 +69,12 @@ namespace ComputerShop.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [Display(Name = "Username")]
+        [StringLength(15, ErrorMessage =  "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [Username]
+        public string UserName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -84,9 +95,8 @@ namespace ComputerShop.Models
     public class ResetPasswordViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string UserName { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

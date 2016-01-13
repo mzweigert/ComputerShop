@@ -12,13 +12,13 @@ namespace ComputerShop.DBModels
     using System;
     using System.Collections.Generic;
     
-    public partial class Basket
+    public partial class MemberClaim
     {
-        public long PurchaseId { get; set; }
-        public long ProductId { get; set; }
-        public long quantity { get; set; }
+        public long Id { get; set; }
+        public long MemberId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
-        public virtual Product Product { get; set; }
-        public virtual Purchase Purchase { get; set; }
+        public virtual Member Member { get; set; }
     }
 }
