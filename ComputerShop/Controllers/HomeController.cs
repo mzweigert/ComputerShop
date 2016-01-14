@@ -12,6 +12,7 @@ namespace ComputerShop.Controllers
     {
         public ActionResult Index()
         {
+            ApplicationDbContext.Create();
             return View();
         }
 

@@ -30,7 +30,7 @@
                 <li>@Html.ActionLink("Home", "Index", "Home")</li>
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                <li>
+                <li>@Html.ActionLink("Role", "Index", "Role")</li>
             </ul>
             <div class="col-sm-3 col-md-3">
                 @using (Html.BeginForm("Search", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "navbar-form", role = "form" }))

@@ -14,6 +14,10 @@ namespace ComputerShop
     {
         protected void Application_Start()
         {
+            // Set the database intializer which is run once during application start
+            // This seeds the database with admin user credentials and admin role
+            Database.SetInitializer<ApplicationDbContext>(new ApplicationDbInitializer());
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

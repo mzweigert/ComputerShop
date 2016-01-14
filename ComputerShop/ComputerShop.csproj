@@ -200,13 +200,17 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Managers\ApplicationUserManager.cs" />
+    <Compile Include="Managers\ApplicationRoleManager.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Address.cs">
       <DependentUpon>CSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Basket.cs">
       <DependentUpon>CSModel.tt</DependentUpon>
     </Compile>
@@ -334,6 +338,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Search.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -370,7 +375,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>53611</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53611/</IISUrl>
+          <IISUrl>http://localhost:8080/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

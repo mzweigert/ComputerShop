@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ComputerShop.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
+using ComputerShop.Managers;
 
 namespace ComputerShop.Controllers
 {
@@ -18,10 +19,11 @@ namespace ComputerShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext context;
 
         public AccountController()
         {
-
+            context = new ApplicationDbContext();
         }
       
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -29,7 +31,7 @@ namespace ComputerShop.Controllers
             UserManager = userManager;
             SignInManager = signInManager;
         }
-
+        
         public ApplicationSignInManager SignInManager
         {
             get
@@ -141,6 +143,7 @@ namespace ComputerShop.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //ViewBag.Name = new SelectList(context.Roles.ToList(), "Name", "Name");
             return View();
         }
 
@@ -157,7 +160,12 @@ namespace ComputerShop.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                   
+
+                    //Assign Role to user
+                    
+                    await this.UserManager.AddToRoleAsync(user.Id, "User");
+
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

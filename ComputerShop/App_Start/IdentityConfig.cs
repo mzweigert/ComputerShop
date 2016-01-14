@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ComputerShop.Models;
+using ComputerShop.Managers;
 
 namespace ComputerShop
 {
@@ -33,65 +34,7 @@ namespace ComputerShop
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-    public class ApplicationUserManager : UserManager<ApplicationUser, long>
-    {
-        #region constructors and destructors
-
-        public ApplicationUserManager(IUserStore<ApplicationUser, long> store) : base(store)
-        {
-        }
-
-        #endregion
-
-        #region methods
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
-        {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, Role, long, UserLogin, UserRole, UserClaim>(context.Get<ApplicationDbContext>()));
-            // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
-
-           
-            // Configure validation logic for passwords
-            manager.PasswordValidator = new PasswordValidator
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = false,
-            };
-            // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
-            // You can write your own provider and plug in here.
-            manager.RegisterTwoFactorProvider(
-                "PhoneCode",
-                new PhoneNumberTokenProvider<ApplicationUser, long>
-                {
-                    MessageFormat = "Your security code is: {0}"
-                });
-            manager.RegisterTwoFactorProvider(
-                "EmailCode",
-                new EmailTokenProvider<ApplicationUser, long>
-                {
-                    Subject = "Security Code",
-                    BodyFormat = "Your security code is: {0}"
-                });
-            manager.EmailService = new EmailService();
-            manager.SmsService = new SmsService();
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, long>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
-            return manager;
-        }
-
-        #endregion
-    }
+    
 
     // Configure the application sign-in manager which is used in this application.
     public class ApplicationSignInManager : SignInManager<ApplicationUser, long>
@@ -109,6 +52,74 @@ namespace ComputerShop
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+    public class ApplicationDbInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
+    {
+
+        protected override void Seed(ApplicationDbContext context)
+        {
+            InitializeIdentityForEF(context);
+            base.Seed(context);
+        }
+
+        
+        public static void InitializeIdentityForEF(ApplicationDbContext db)
+        {
+            var userManager = HttpContext
+                .Current.GetOwinContext()
+                .GetUserManager<ApplicationUserManager>();
+
+            var roleManager = HttpContext.Current
+                .GetOwinContext()
+                .Get<ApplicationRoleManager>();
+
+  
+            const string name = "admin";
+            const string password = "admin";
+            const string roleAdmin = "Admin";
+            const string roleUser = "User";
+
+            //Create Role Admin if it does not exist
+            var roleA = roleManager.FindByName(roleAdmin);
+            if (roleA == null)
+            {
+
+                roleA = new Role();
+                roleA.Name = roleAdmin;
+                var roleresult = roleManager.Create(roleA);
+            }
+
+            //Create Role User if it does not exist
+            var roleU = roleManager.FindByName(roleUser);
+            if (roleU == null)
+            {
+
+                roleU = new Role();
+                roleU.Name = roleUser;
+                var roleresult = roleManager.Create(roleU);
+            }
+
+            var user = userManager.FindByName(name);
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = name, Email = "computershop@admin.com" };
+                var result = userManager.Create(user, password);
+                if(result.Succeeded)
+                {
+                    result = userManager.SetLockoutEnabled(user.Id, false);
+
+                    // Add user admin to Role Admin if not already added
+                    var rolesForUser = userManager.GetRoles(user.Id);
+                    if (!rolesForUser.Contains(roleA.Name))
+                    {
+                        userManager.AddToRole(user.Id, roleA.Name);
+                    }
+                }
+                
+            }
+
+            
         }
     }
 }
