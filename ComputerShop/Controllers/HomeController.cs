@@ -23,6 +23,7 @@ namespace ComputerShop.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Contact me.";

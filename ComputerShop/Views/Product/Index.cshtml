@@ -1,0 +1,75 @@
+﻿@using ComputerShop.Models
+@{
+    ViewBag.Title = "Product";
+    List<string> errors = (List<string>)TempData["Errors"];
+
+}
+
+
+
+<div class="jumbotron">
+    @if (ViewBag.AllProducts.Count == 0 && !User.IsInRole("Admin"))
+    {
+        <p class="text-center">No products found"</p>
+    }
+    else
+    {
+        
+        <div class="container text-center">
+            @if (errors != null)
+            {
+                foreach (string e in errors)
+                {
+                    <p class="text-danger">@e</p>
+                }
+            }
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Type</th>
+                        <th>Production Date</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                
+                <tbody id="">
+                    @foreach (var item in ViewBag.AllProducts)
+                    {
+                        <tr>
+                            
+                            <th>@item.Id</th>
+                            <th>@item.product_type</th>
+                            <th>@item.production_date.ToShortDateString()</th>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <th><button type="button" data-toggle="modal" data-target="#update-modal" class="glyphicon glyphicon-edit btn-success update-row" aria-hidden="true"></button></th>
+                                <th><button type="button" data-toggle="modal" data-target="#delete-modal" class="glyphicon glyphicon-remove btn-danger remove-row" aria-hidden="true"></button></th>
+                            }
+                            else if (User.IsInRole("User"))
+                            {
+                                <th><input type="button" data-toggle="modal" data-target="#update-modal" class="glyphicon glyphicon-edit btn-success update-row" aria-hidden="true"></th>
+                                <th></th>
+                            }
+                            else
+                            {
+                                <th></th>
+                                <th></th>
+                            }
+                        </tr>
+                       
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+
+                        Html.RenderPartial("_Create");
+                       
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+

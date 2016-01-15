@@ -50,7 +50,13 @@ namespace ComputerShop.Models
         }
 
         public long Id { get; set; }
+        [Required]
+        [Display(Name = "Product type")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         public string product_type { get; set; }
+        [Required]
+        [Display(Name = "Production date")]
+        [DataType(DataType.Date, ErrorMessage = "The Production date isn't correct. Correct date (\"YYYY-MM-DD\"")]
         public System.DateTime production_date { get; set; }
 
         public virtual ICollection<Basket> Baskets { get; set; }

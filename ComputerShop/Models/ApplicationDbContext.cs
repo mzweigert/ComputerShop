@@ -13,8 +13,6 @@ namespace ComputerShop.Models
         public ApplicationDbContext()
             : base("CSConnection")
         {
-            
-           
         }
        
         public static ApplicationDbContext Create()

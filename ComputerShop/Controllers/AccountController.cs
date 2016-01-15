@@ -19,11 +19,10 @@ namespace ComputerShop.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-        private ApplicationDbContext context;
-
+      
         public AccountController()
         {
-            context = new ApplicationDbContext();
+            new ApplicationDbContext();
         }
       
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -61,6 +60,7 @@ namespace ComputerShop.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+           
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
