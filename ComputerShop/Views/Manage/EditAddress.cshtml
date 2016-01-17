@@ -1,0 +1,26 @@
+﻿@model ComputerShop.Models.Address
+
+<!DOCTYPE html>
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    
+    
+    	<div class="jumbotron text-center">
+    	@using (Html.BeginForm("EditAddressConfirmed", "Manage", FormMethod.Post))
+    	{
+    		@Html.AntiForgeryToken()
+            { Html.RenderPartial("_AddressFormLayout", Model); }
+        }
+    		<div>
+    			@Html.ActionLink("Back to List", "Index")
+    		</div>
+    	</div>
+</body>
+</html>

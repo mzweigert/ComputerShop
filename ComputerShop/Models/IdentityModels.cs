@@ -16,19 +16,19 @@ namespace ComputerShop.Models
         public long Id { get; set; }
 
         [Required]
-        [RegularExpression("^([a-zA-Z0-9 .&'-])", ErrorMessage = "Invalid street name.")]
+        [RegularExpression("^([a-zA-Z &'-]+)$", ErrorMessage = "Invalid street name")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         public string Street { get; set; }
         [Required]
-        [RegularExpression("^([a-zA-Z -])", ErrorMessage = "Invalid city name.")]
+        [RegularExpression("^([a-zA-Z &'-]+)$", ErrorMessage = "Invalid city name.")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         public string City { get; set; }
         [Required]
-        [RegularExpression("^([a-zA-Z0-9/])", ErrorMessage = "Invalid number house.")]
-        [Display(Name = "Zip code")]
+        [RegularExpression("^([a-zA-Z0-9/]+)$", ErrorMessage = "Invalid number house.")]
+        [Display(Name = "Number house")]
         public string Number { get; set; }
         [Required]
-        [RegularExpression("^([0-9-])", ErrorMessage = "Invalid zip-code.")]
+        [RegularExpression("^([0-9-]+)$", ErrorMessage = "Invalid zip-code.")]
         [Display(Name = "Zip code")]
         [StringLength(6, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string ZipCode { get; set; }

@@ -12,7 +12,7 @@ using ComputerShop.Validators;
 using ComputerShop.Managers;
 using Microsoft.AspNet.Identity.Owin;
 using System.Transactions;
-
+using Microsoft.AspNet.Identity;
 namespace ComputerShop.Controllers
 {
     public class ProductController : Controller
@@ -164,12 +164,8 @@ namespace ComputerShop.Controllers
         [HttpPost, ActionName("Buy")]
         [ValidateAntiForgeryToken]
         [AuthorizeWithMessage(Roles = "Admin, User", ErrorMessage = "If u want buy this product you must be logged in")]
-        public async Task<ActionResult> BuyConfirmed(long? idUser, long idProduct, long? quantity)
+        public async Task<ActionResult> BuyConfirmed(long idProduct, long? quantity)
         {
-            if(idUser == null)
-            {
-                return View("Error");
-            }
             if(quantity == null)
             {
                 return View("Error");
@@ -179,7 +175,7 @@ namespace ComputerShop.Controllers
                 return View("Error");
             }
 
-            var user = await UserManager.FindByIdAsync(idUser.Value);
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<long>());
             if (user == null)
             {
                 return View("Error");

@@ -1,5 +1,4 @@
-﻿@using Microsoft.AspNet.Identity;
-@model ComputerShop.Models.Product
+﻿@model ComputerShop.Models.Product
 <!DOCTYPE html>
 
 <html>
@@ -16,20 +15,37 @@
         
     		<table class="table table-bordered">
     			<tbody>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.ProductName)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ProductName)
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.ProductType)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ProductType)
+                        </td>
+                    </tr>
     				<tr>
     					<td>
-    						<strong>@Html.DisplayNameFor(model => model.product_type)</strong>
+    						<strong>@Html.DisplayNameFor(model => model.Price)</strong>
     					</td>
     					<td>
-    						@Html.DisplayFor(model => model.product_type)
+    						@Html.DisplayFor(model => model.Price)
     					</td>
     				</tr>
     				<tr>
     					<td>
-    						<strong>@Html.DisplayNameFor(model => model.production_date)</strong>
+    						<strong>@Html.DisplayNameFor(model => model.ProductionDate)</strong>
     					</td>
     					<td>
-    						@Html.DisplayFor(model => model.production_date)
+    						@Html.DisplayFor(model => model.ProductionDate)
     					</td>
     				</tr>
     				
@@ -39,7 +55,6 @@
     		@using (Html.BeginForm("Buy", "Product", FormMethod.Post)) {
     			@Html.AntiForgeryToken()
                 @Html.Hidden("idProduct", Model.Id)
-                @Html.Hidden("idUser", User.Identity.GetUserId())
                 <div class="form-group">
                     <label for="quantity">How many you want to buy?</label>
                     @Html.TextBox("quantity", 1, new {@class = "form-control bfh-number text-center", @type = "number", @min = "1", @max = "100", @style = "width: 30%;"})

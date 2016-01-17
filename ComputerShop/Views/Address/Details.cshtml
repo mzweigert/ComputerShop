@@ -1,0 +1,65 @@
+﻿@model ComputerShop.Models.Address
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h2>Address</h2>
+    		<table class="table table-bordered">
+    			<tbody>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Id)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Id)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Street)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Street)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.City)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.City)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Number)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Number)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.ZipCode)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.ZipCode)
+    					</td>
+        			</tr>
+    			</tbody>
+    		</table>
+    		<p>
+    			@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    			@Html.ActionLink("Back to List", "Index")
+    		</p>
+    	</div>
+	
+</body>
+</html>
