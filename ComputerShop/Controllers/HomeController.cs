@@ -1,4 +1,5 @@
 ﻿using ComputerShop.Models;
+using ComputerShop.Validators;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -23,7 +24,7 @@ namespace ComputerShop.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Contact me.";
@@ -42,7 +43,7 @@ namespace ComputerShop.Controllers
            if (phrase != null)
                 using (var context = new ApplicationDbContext())
                 {
-                    var products = from m in context.Product where m.product_type.Contains(phrase) select m;
+                    var products = from m in context.Product where m.ProductType.Contains(phrase) select m;
                     
                     return View(products.ToList());
                 }

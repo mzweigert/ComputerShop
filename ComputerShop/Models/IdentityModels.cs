@@ -14,10 +14,24 @@ namespace ComputerShop.Models
     public partial class Address
     {
         public long Id { get; set; }
+
+        [Required]
+        [RegularExpression("^([a-zA-Z0-9 .&'-])", ErrorMessage = "Invalid street name.")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         public string Street { get; set; }
+        [Required]
+        [RegularExpression("^([a-zA-Z -])", ErrorMessage = "Invalid city name.")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
         public string City { get; set; }
+        [Required]
+        [RegularExpression("^([a-zA-Z0-9/])", ErrorMessage = "Invalid number house.")]
+        [Display(Name = "Zip code")]
         public string Number { get; set; }
-        public string Zip_code { get; set; }
+        [Required]
+        [RegularExpression("^([0-9-])", ErrorMessage = "Invalid zip-code.")]
+        [Display(Name = "Zip code")]
+        [StringLength(6, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        public string ZipCode { get; set; }
     }
 
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -50,14 +64,26 @@ namespace ComputerShop.Models
         }
 
         public long Id { get; set; }
+
+        [Required]
+        [Display(Name = "Product name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
+        public string  ProductName { get; set; }
+
         [Required]
         [Display(Name = "Product type")]
         [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 3)]
-        public string product_type { get; set; }
+        public string ProductType { get; set; }
+
+        [Required(ErrorMessage = "Please add a price.")]
+        [DataType(DataType.Currency)]
+        public decimal Price { get; set; }
+
         [Required]
         [Display(Name = "Production date")]
-        [DataType(DataType.Date, ErrorMessage = "The Production date isn't correct. Correct date (\"YYYY-MM-DD\"")]
-        public System.DateTime production_date { get; set; }
+        [DataType(DataType.Date, ErrorMessage = "Incorrect date format")]
+        
+        public System.DateTime ProductionDate { get; set; }
 
         public virtual ICollection<Basket> Baskets { get; set; }
     }
@@ -70,7 +96,8 @@ namespace ComputerShop.Models
 
         public long Id { get; set; }
         public long UserId { get; set; }
-        public System.DateTime purchase_date { get; set; }
+        public System.DateTime PurchaseDate { get; set; }
+        public bool IsConfirmed { get; set; }
 
         public virtual ICollection<Basket> Baskets { get; set; }
         public virtual ApplicationUser User { get; set; }
@@ -81,7 +108,7 @@ namespace ComputerShop.Models
         public long PurchaseId { get; set; }
         [Key]
         public long ProductId { get; set; }
-        public long quantity { get; set; }
+        public long Quantity { get; set; }
 
         public virtual Purchase Purchase { get; set; }
         public virtual Product Product { get; set; }

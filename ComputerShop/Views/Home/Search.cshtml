@@ -9,7 +9,7 @@
 <div class="jumbotron">
     @if(Model.Count == 0)
     {
-        <p class="text-center">Cannot find product with phrase "@ViewBag.Phrase"</p>
+        <p class="text-center">Could not find product with phrase "@ViewBag.Phrase"</p>
     }
     else
     {
@@ -17,22 +17,28 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th>Id</th>
+                        }
+                        <th>Product Name</th>
                         <th>Product Type</th>
                         <th>Production Date</th>
                         <th></th>
-                        <th></th>
                     </tr>
                 </thead>
-                <tbody id="">
+                <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <th>@item.Id</th>
-                            <th>@item.product_type</th>
-                            <th>@item.production_date.ToShortDateString()</th>
-                            <th></th>
-                            <th></th>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <th>@item.Id</th>
+                            }
+                            <th>@item.ProductName</th>
+                            <th>@item.ProductType</th>
+                            <th>@item.ProductionDate.ToShortDateString()</th>
+                            <th>@{Html.RenderPartial("_ProductOptions", item);}</th>
                         </tr>
                     }
                 </tbody>

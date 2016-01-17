@@ -3,22 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ComputerShop.Validators
 {
+
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeWithMessage : AuthorizeAttribute
     {
-        public string Message { get; set; }
+        public string ErrorMessage { get; set; }
+        private bool _isAuthorized;
+
+        protected override bool AuthorizeCore(System.Web.HttpContextBase httpContext)
+        {
+            _isAuthorized = base.AuthorizeCore(httpContext);
+            return _isAuthorized;
+        }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            var result = new ViewResult();
-            result.ViewName = "~/Views/Account/Login.cshtml";
-            result.MasterName = "~/Views/Shared/_Layout.cshtml";
-            result.ViewBag.Message = this.Message;
+            base.OnAuthorization(filterContext);
 
-            filterContext.Result = result;
-
+            if (!_isAuthorized)
+            {
+                filterContext.Controller.TempData.Add("AuthorizationError", this.ErrorMessage);
+            }
         }
     }
 }

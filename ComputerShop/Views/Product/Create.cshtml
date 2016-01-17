@@ -1,0 +1,64 @@
+﻿@model ComputerShop.Models.Product
+
+<!DOCTYPE html>
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/decimalfix.jquery.validate.js")
+
+    <div class="jumbotron text-center">
+    	@using (Html.BeginForm()) 
+    	{
+    		@Html.AntiForgeryToken()
+        
+    		<div class="form-horizontal">
+    			<h2>Product</h2>
+    			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.ProductName)
+                    @Html.EditorFor(model => model.ProductName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProductName, "", new { @class = "text-danger" })
+
+                </div>
+
+    			<div class="form-group">
+    
+    				@Html.LabelFor(model => model.ProductType)
+    				@Html.EditorFor(model => model.ProductType, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.ProductType, "", new { @class = "text-danger" })
+    		
+    			</div>
+                <div class="form-group">
+
+                    @Html.LabelFor(model => model.Price)
+                    @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+
+                </div>
+    			<div class="form-group">
+    
+    				@Html.LabelFor(model => model.ProductionDate)
+    				@Html.EditorFor(model => model.ProductionDate, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.ProductionDate, "", new { @class = "text-danger" })
+    		
+    			</div>
+    			<div class="form-group">
+    				<input type="submit" value="Create" class="btn btn-default" />
+    			</div>
+    		</div>
+    	}
+    
+    	<div>
+    		@Html.ActionLink("Back to List", "Index")
+    	</div>
+    </div>
+</body>
+</html>

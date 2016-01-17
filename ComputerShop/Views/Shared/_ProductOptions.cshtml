@@ -1,0 +1,11 @@
+﻿@model ComputerShop.Models.Product
+
+@if (User.IsInRole("Admin"))
+{
+   
+    @Html.ActionLink("Edit", "Edit", "Product", new { id = Model.Id }, "")<text> | </text>
+    @Html.ActionLink("Delete", "Delete", "Product", new { id = Model.Id }, "")<text> | </text>
+}
+
+@Html.ActionLink("Details", "Details", "Product", new { id = Model.Id }, "")<text> | </text>
+@Html.ActionLink("Buy", "Buy", "Product", new { id = Model.Id }, "")

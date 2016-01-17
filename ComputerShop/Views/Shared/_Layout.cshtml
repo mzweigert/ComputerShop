@@ -33,8 +33,12 @@
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 @if (!User.IsInRole("Admin"))
                 {
-                    <li>@Html.ActionLink("Product", "Index", "Product")</li>
+                    <li>@Html.ActionLink("All Products", "Index", "Product")</li>
                 }       
+                @if (Request.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("My Purchases", "Index", "Product")</li>
+                }
             </ul>
             <div class="col-sm-3 col-md-3">
                 @using (Html.BeginForm("Search", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "navbar-form", role = "form" }))
@@ -57,7 +61,9 @@
         </div>
     </div>
     <div class="container body-content">
-        @RenderBody()
+        
+            @RenderBody()
+       
         <footer>
             <p>&copy; @DateTime.Now.Year - Computer Shop</p>
         </footer>

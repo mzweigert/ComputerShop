@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ComputerShop.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ComputerShop.Managers;
+using System.Web.UI;
 
 namespace ComputerShop.Controllers
 {
@@ -22,7 +23,6 @@ namespace ComputerShop.Controllers
       
         public AccountController()
         {
-            new ApplicationDbContext();
         }
       
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -60,7 +60,6 @@ namespace ComputerShop.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-           
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

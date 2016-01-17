@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNet.Identity;
+@model ComputerShop.Models.Product
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Buy</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h3>Are you sure you want to buy this?</h3>
+    
+    		<h3>Product</h3>
+        
+    		<table class="table table-bordered">
+    			<tbody>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.product_type)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.product_type)
+    					</td>
+    				</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.production_date)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.production_date)
+    					</td>
+    				</tr>
+    				
+    			</tbody>
+    		</table>
+    
+    		@using (Html.BeginForm("Buy", "Product", FormMethod.Post)) {
+    			@Html.AntiForgeryToken()
+                @Html.Hidden("idProduct", Model.Id)
+                @Html.Hidden("idUser", User.Identity.GetUserId())
+                <div class="form-group">
+                    <label for="quantity">How many you want to buy?</label>
+                    @Html.TextBox("quantity", 1, new {@class = "form-control bfh-number text-center", @type = "number", @min = "1", @max = "100", @style = "width: 30%;"})
+                </div> 
+    			<div class="form-actions no-color">
+    				<input type="submit" value="Buy" class="btn btn-default" /> |
+    				@Html.ActionLink("Back to List", "Index")
+    			</div>
+    		}
+    	</div>
+    		
+	
+</body>
+</html>

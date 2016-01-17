@@ -1,0 +1,71 @@
+﻿@model ComputerShop.Models.Product
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h2>Product</h2>
+    		<table class="table table-bordered">
+    			<tbody>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayNameFor(model => model.Id)</strong>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.Id)
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.ProductName)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ProductName)
+                        </td>
+                    </tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.ProductType)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.ProductType)
+    					</td>
+        			</tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Price)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Price)
+                        </td>
+                    </tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.ProductionDate)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.ProductionDate)
+    					</td>
+        			</tr>
+    			</tbody>
+    		</table>
+    		<p>
+                @if(User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) <text>|</text>
+                }
+    			@Html.ActionLink("Back to List", "Index")
+    		</p>
+    	</div>
+	
+</body>
+</html>

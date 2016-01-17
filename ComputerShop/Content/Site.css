@@ -31,9 +31,9 @@ textarea {
 }
 
   .navbar-searchbox 
-  {
+{
     max-width: 295px;
-  }
+}
 
 .alert-phrase
 {
@@ -41,5 +41,9 @@ textarea {
     margin-top: 5px;
     padding: 7px;
     margin-bottom: 0px;
+}
+
+.table th {
+   text-align: center;   
 }
 

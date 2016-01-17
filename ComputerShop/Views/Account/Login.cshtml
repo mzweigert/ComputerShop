@@ -5,13 +5,17 @@
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Styles.Render("~/Content/Register.css")
+    @Styles.Render("~/Content/InputForm.css")
 }
 
 
-<h2>@ViewBag.Title.</h2>
-<div class="well">
+<h2 class="text-center">@ViewBag.Title.</h2>
+<div class="jumbotron">
     <section id="loginForm">
+        @if(TempData["AuthorizationError"] != null)
+        {
+            <p class="text-danger text-center"><strong>@TempData["AuthorizationError"]</strong></p>
+        }
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
             <div class="text-center">
