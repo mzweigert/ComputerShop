@@ -8,7 +8,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ComputerShop.Models;
 using ComputerShop.Managers;
-using System.Transactions;
 using System.Data.Entity;
 
 namespace ComputerShop.Controllers
@@ -328,12 +327,11 @@ namespace ComputerShop.Controllers
 
         //
         // GET: /Manage/AddAddress
-        [ValidateAntiForgeryToken]
-        public ActionResult AddAddress()
+        public async Task<ActionResult> AddAddress()
         {
 
-            var address = UserManager.FindById(User.Identity.GetUserId<long>()).Address;
-            if (address == null)
+            User user = await UserManager.FindByIdAsync(User.Identity.GetUserId<long>());
+            if (user.Address == null)
                 return View();
 
             return RedirectToAction("EditAddress");
@@ -343,54 +341,33 @@ namespace ComputerShop.Controllers
         // POST: /Manage/AddAddress
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddAddress([Bind(Include = "Id,Street,City,Number,ZipCode")] Address address)
+        public ActionResult AddAddress([Bind(Include = "Street,City,Number,ZipCode")] Address address)
         {
             if (ModelState.IsValid)
             {
-                
-               try
-               {
-                    using (TransactionScope ts = new TransactionScope())
-                    {
-                        Address userAddress = db.Address.Add(address);
-                        db.SaveChanges();
-                        db.Entry(userAddress).GetDatabaseValues();
-                        if (userAddress.Id > 0)
-                        {
-                            ApplicationUser user = await UserManager.FindByIdAsync(User.Identity.GetUserId<long>());
-                            user.Address = userAddress;
-                            UserManager.Update(user);
-
-                        }
-                        ts.Complete();
-                        return RedirectToAction("Index");
-                    }
-
-                }
-                catch (Exception e)
-                {
-                    return View("Error");
-                }
-                
+                address.UserId = User.Identity.GetUserId<long>();
+                Address userAddress = db.Address.Add(address);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
 
             return View(address);
         }
 
         //
-        // POST: /Manage/EditAddress
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAddress([Bind(Include = "IdAddress")]long? IdAddress)
+        // GET: /Manage/EditAddress
+        public async Task<ActionResult> EditAddress()
         {
-            if (IdAddress == null)
+            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<long>());
+
+            if(user.Address == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("AddAddress");
             }
-            Address address = await db.Address.FindAsync(IdAddress);
+            Address address = await db.Address.FindAsync(user.Id);
             if (address == null)
             {
-                TempData["ErrorReason"] = "Could not find address with id = " + IdAddress;
+                TempData["ErrorReason"] = "Could not find address";
                 return View("Error");
             }
             return View(address);
@@ -398,26 +375,18 @@ namespace ComputerShop.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditAddressConfirmed(Address address)
+        public async Task<ActionResult> EditAddress(Address address)
         {
-            var checkEditingIdAddress = UserManager.FindById(User.Identity.GetUserId<long>()).Address.Id;
-            if (checkEditingIdAddress != address.Id)
+            if (ModelState.IsValid)
             {
-                return View("Error");
-            }
-            else
-            {
-                if (ModelState.IsValid)
-                {
 
-                    db.Entry(address).State = EntityState.Modified;
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("Index");
-                }
-                return View("EditAddress", address);
-
+                db.Entry(address).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
+            return View(address);
         }
+
 
         protected override void Dispose(bool disposing)
         {

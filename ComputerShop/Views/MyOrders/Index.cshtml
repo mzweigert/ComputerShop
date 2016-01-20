@@ -1,0 +1,84 @@
+﻿@using ComputerShop.Models
+@model Purchase
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>View</title>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        @if (Model == null)
+        {
+            <p>You have not bought any product yet</p>
+        }
+        else
+        {
+            <table class="table table-bordered">
+                <tr>
+                    <th>
+                        @Html.DisplayName("Product Name")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Product Type")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Product price")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Quantity")
+                    </th>
+                    <th>
+                        @Html.DisplayName("price x quantity")
+                    </th>
+                    <th>
+                        Edit
+                    </th>
+                    <th>
+                        Delete
+                    </th>
+                </tr>
+
+
+                @foreach (Basket b in Model.Baskets)
+                {
+
+                    <tr>
+                        <th>
+                            @b.Product.ProductName
+                        </th>
+                        <th>
+                            @b.Product.ProductType
+                        </th>
+                        <th>
+                            @b.Product.Price
+                        </th>
+                        <th>
+                            @b.Quantity
+                        </th>
+                        <th>
+                            @(b.Product.Price * b.Quantity)
+                        </th>
+                        <th>
+                            @Html.ActionLink("[ Edit ]", "Edit", routeValues: new { PurchaseId = Model.Id, ProductId = b.ProductId })
+                            
+                        </th>
+                        <th>
+                            @Html.ActionLink("[ Delete ]", "Delete", routeValues: new { PurchaseId = Model.Id, ProductId = b.ProductId})
+                        </th>
+                    </tr>
+                }
+            </table>
+            <hr />
+            <p class="text-right">Sum: @Model.SumToPay</p>
+
+        }
+            
+
+
+    </div>
+
+    </body>
+</html>

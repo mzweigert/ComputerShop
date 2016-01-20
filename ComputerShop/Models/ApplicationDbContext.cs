@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Collections;
 
 namespace ComputerShop.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, Role, long, UserLogin, UserRole, UserClaim>
+    public class ApplicationDbContext : IdentityDbContext<User, Role, long, UserLogin, UserRole, UserClaim>
     {
         public ApplicationDbContext()
             : base("CSConnection")
@@ -29,10 +30,13 @@ namespace ComputerShop.Models
         {
             base.OnModelCreating(modelBuilder);
 
-           
+
             // Map Entities to their tables.
-            modelBuilder.Entity<Address>().ToTable("Address");
-            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<Address>().ToTable("Address").HasKey(e => e.UserId);
+            modelBuilder.Entity<User>().ToTable("User")
+                .HasOptional(e => e.Address)
+                .WithRequired(ed => ed.User)
+                .WillCascadeOnDelete(true);
             modelBuilder.Entity<Role>().ToTable("Role");
             modelBuilder.Entity<UserRole>().ToTable("RoleAsingment");
             modelBuilder.Entity<UserClaim>().ToTable("UserClaim");
@@ -40,26 +44,19 @@ namespace ComputerShop.Models
             modelBuilder.Entity<Purchase>().ToTable("Purchase");
             modelBuilder.Entity<Product>().ToTable("Product");
             modelBuilder.Entity<Basket>().HasKey(b => new { b.PurchaseId, b.ProductId }).ToTable("Basket");
-            modelBuilder.Entity<Basket>()
-            .HasRequired(b => b.Purchase)
-            .WithMany(t => t.Baskets)
-            .HasForeignKey(t => t.PurchaseId);
-            modelBuilder.Entity<Basket>()
-           .HasRequired(b => b.Product)
-           .WithMany(t => t.Baskets)
-           .HasForeignKey(t => t.ProductId);
+            modelBuilder.Entity<Basket>().HasRequired(b => b.Purchase).WithMany(t => t.Baskets).HasForeignKey(t => t.PurchaseId);
+            modelBuilder.Entity<Basket>().HasRequired(b => b.Product).WithMany(t => t.Baskets).HasForeignKey(t => t.ProductId);
 
 
             // Set AutoIncrement-Properties
-            modelBuilder.Entity<Address>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<ApplicationUser>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            modelBuilder.Entity<User>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<UserClaim>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Role>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Product>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             modelBuilder.Entity<Purchase>().Property(r => r.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-
-            
         }
+
+        
     }
 }

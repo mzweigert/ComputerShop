@@ -10,11 +10,11 @@ using System.Web;
 
 namespace ComputerShop.Managers
 {
-    public class ApplicationUserManager : UserManager<ApplicationUser, long>
+    public class ApplicationUserManager : UserManager<User, long>
     {
         #region constructors and destructors
 
-        public ApplicationUserManager(IUserStore<ApplicationUser, long> store) : base(store)
+        public ApplicationUserManager(IUserStore<User, long> store) : base(store)
         {
         }
 
@@ -24,9 +24,9 @@ namespace ComputerShop.Managers
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser, Role, long, UserLogin, UserRole, UserClaim>(context.Get<ApplicationDbContext>()));
+            var manager = new ApplicationUserManager(new UserStore<User, Role, long, UserLogin, UserRole, UserClaim>(context.Get<ApplicationDbContext>()));
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<ApplicationUser, long>(manager)
+            manager.UserValidator = new UserValidator<User, long>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
@@ -46,13 +46,13 @@ namespace ComputerShop.Managers
             // You can write your own provider and plug in here.
             manager.RegisterTwoFactorProvider(
                 "PhoneCode",
-                new PhoneNumberTokenProvider<ApplicationUser, long>
+                new PhoneNumberTokenProvider<User, long>
                 {
                     MessageFormat = "Your security code is: {0}"
                 });
             manager.RegisterTwoFactorProvider(
                 "EmailCode",
-                new EmailTokenProvider<ApplicationUser, long>
+                new EmailTokenProvider<User, long>
                 {
                     Subject = "Security Code",
                     BodyFormat = "Your security code is: {0}"
@@ -62,7 +62,7 @@ namespace ComputerShop.Managers
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, long>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<User, long>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
         }

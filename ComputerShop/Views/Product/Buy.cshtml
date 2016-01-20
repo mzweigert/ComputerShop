@@ -54,16 +54,19 @@
     
     		@using (Html.BeginForm("Buy", "Product", FormMethod.Post)) {
     			@Html.AntiForgeryToken()
-                @Html.Hidden("idProduct", Model.Id)
+                @Html.Hidden("ProductId", Model.Id)
                 <div class="form-group">
                     <label for="quantity">How many you want to buy?</label>
                     @Html.TextBox("quantity", 1, new {@class = "form-control bfh-number text-center", @type = "number", @min = "1", @max = "100", @style = "width: 30%;"})
                 </div> 
     			<div class="form-actions no-color">
-    				<input type="submit" value="Buy" class="btn btn-default" /> |
-    				@Html.ActionLink("Back to List", "Index")
+    				<input type="submit" value="Buy" class="btn btn-default" /> 
+    				
     			</div>
-    		}
+                @Html.ActionLink("Back to Product List", "Index") <text>|</text>
+                @Html.ActionLink("Back to My Orders", "Index", "MyOrders")
+
+            }
     	</div>
     		
 	

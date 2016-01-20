@@ -1,0 +1,130 @@
+﻿@model ComputerShop.Models.User
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h2>User</h2>
+    		<table class="table table-bordered">
+    			<tbody>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Id)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Id)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Address)</strong>
+    					</td>
+                        @if (Model.Address == null)
+                        {
+                            <td>
+                                Not supplemented yet.
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                [ @Html.ActionLink("Address", "Details", "Address", routeValues: new { id = Model.Address.UserId }, htmlAttributes: null) ]
+                            </td>
+                        }	
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Email)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Email)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.EmailConfirmed)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.EmailConfirmed)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.SecurityStamp)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.SecurityStamp)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.PhoneNumber)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.PhoneNumber)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.PhoneNumberConfirmed)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.PhoneNumberConfirmed)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.TwoFactorEnabled)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.TwoFactorEnabled)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.LockoutEndDateUtc)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.LockoutEndDateUtc)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.LockoutEnabled)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.LockoutEnabled)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.AccessFailedCount)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.AccessFailedCount)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.UserName)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.UserName)
+    					</td>
+        			</tr>
+    			</tbody>
+    		</table>
+    		<p>
+    			@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    			@Html.ActionLink("Back to List", "Index")
+    		</p>
+    	</div>
+	
+</body>
+</html>

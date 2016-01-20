@@ -3,7 +3,12 @@
     <h2>Address</h2>
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
+
+    @if (Model != null)
+    {
+        @Html.HiddenFor(model => model.UserId)
+    }
+    
 
     <div class="form-group">
         @Html.LabelFor(model => model.Street)

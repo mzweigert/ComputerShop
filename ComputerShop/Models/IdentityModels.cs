@@ -13,7 +13,8 @@ namespace ComputerShop.Models
 {
     public partial class Address
     {
-        public long Id { get; set; }
+        [Key, ForeignKey("User")]
+        public long UserId { get; set; }
 
         [Required]
         [RegularExpression("^([a-zA-Z &'-]+)$", ErrorMessage = "Invalid street name")]
@@ -32,14 +33,15 @@ namespace ComputerShop.Models
         [Display(Name = "Zip code")]
         [StringLength(6, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         public string ZipCode { get; set; }
+
+        public virtual User User { get; set; }
     }
 
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser<long, UserLogin, UserRole, UserClaim>
+    public class User : IdentityUser<long, UserLogin, UserRole, UserClaim>
     {
-        public Nullable<long> AddressId { get; set; }
-
         public virtual Address Address { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager userManager)
         {
             var userIdentity = await userManager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
@@ -82,7 +84,6 @@ namespace ComputerShop.Models
         [Required]
         [Display(Name = "Production date")]
         [DataType(DataType.Date, ErrorMessage = "Incorrect date format")]
-        
         public System.DateTime ProductionDate { get; set; }
 
         public virtual ICollection<Basket> Baskets { get; set; }
@@ -95,12 +96,30 @@ namespace ComputerShop.Models
         }
 
         public long Id { get; set; }
+        [Required]
         public long UserId { get; set; }
-        public System.DateTime PurchaseDate { get; set; }
+        [Required]
+        [Display(Name = "Purchase date")]
+        [DataType(DataType.Date, ErrorMessage = "Incorrect date format")]
+        public Nullable<System.DateTime> PurchaseDate { get; set; }
         public bool IsConfirmed { get; set; }
 
+        public decimal SumToPay
+        {
+            get
+            {
+                decimal sum = 0;
+                foreach(Basket b in Baskets)
+                {
+                    sum += b.Product.Price * b.Quantity;
+                }
+                return sum;
+            }
+        }
+
+
         public virtual ICollection<Basket> Baskets { get; set; }
-        public virtual ApplicationUser User { get; set; }
+        public virtual User User { get; set; }
     }
     public partial class Basket
     {
@@ -108,7 +127,9 @@ namespace ComputerShop.Models
         public long PurchaseId { get; set; }
         [Key]
         public long ProductId { get; set; }
-        public long Quantity { get; set; }
+        [Range(1, 100, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
+        public int Quantity { get; set; }
+        
 
         public virtual Purchase Purchase { get; set; }
         public virtual Product Product { get; set; }

@@ -37,14 +37,14 @@ namespace ComputerShop
     
 
     // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, long>
+    public class ApplicationSignInManager : SignInManager<User, long>
     {
         public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
             : base(userManager, authenticationManager)
         {
         }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(User user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
         }
@@ -103,7 +103,7 @@ namespace ComputerShop
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = "computershop@admin.com" };
+                user = new User { UserName = name, Email = "computershop@admin.com" };
                 var result = userManager.Create(user, password);
                 if(result.Succeeded)
                 {

@@ -8,7 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using ComputerShop.Models;
-using ComputerShop.Validators;
+using Microsoft.AspNet.Identity;
 
 namespace ComputerShop.Controllers
 {
@@ -17,14 +17,13 @@ namespace ComputerShop.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Address
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can see all addresses")]
         public async Task<ActionResult> Index()
         {
-            return View(await db.Address.ToListAsync());
+            var address = db.Address.Include(a => a.User);
+            return View(await address.ToListAsync());
         }
 
         // GET: Address/Details/5
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can see it")]
         public async Task<ActionResult> Details(long? id)
         {
             if (id == null)
@@ -41,9 +40,9 @@ namespace ComputerShop.Controllers
         }
 
         // GET: Address/Create
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can create address")]
         public ActionResult Create()
         {
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName");
             return View();
         }
 
@@ -52,21 +51,30 @@ namespace ComputerShop.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can create address")]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Street,City,Number,ZipCode")] Address address)
+        public async Task<ActionResult> Create([Bind(Include = "UserId,Street,City,Number,ZipCode")] Address address)
         {
             if (ModelState.IsValid)
             {
-                db.Address.Add(address);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+
+                if (db.Address.Find(address.UserId) == null)
+                {
+                    db.Address.Add(address);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Address with id = " + address.UserId + " already exist in database");
+                }
+                
             }
 
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", address.UserId);
             return View(address);
         }
 
         // GET: Address/Edit/5
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can edit address")]
         public async Task<ActionResult> Edit(long? id)
         {
             if (id == null)
@@ -79,6 +87,7 @@ namespace ComputerShop.Controllers
                 TempData["ErrorReason"] = "Could not find address with id = " + id;
                 return View("Error");
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", address.UserId);
             return View(address);
         }
 
@@ -87,8 +96,7 @@ namespace ComputerShop.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can edit address")]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Street,City,Number,ZipCode")] Address address)
+        public async Task<ActionResult> Edit([Bind(Include = "UserId,Street,City,Number,ZipCode")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -96,11 +104,11 @@ namespace ComputerShop.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            ViewBag.UserId = new SelectList(db.Users, "Id", "UserName", address.UserId);
             return View(address);
         }
 
         // GET: Address/Delete/5
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can delete address")]
         public async Task<ActionResult> Delete(long? id)
         {
             if (id == null)
@@ -119,7 +127,6 @@ namespace ComputerShop.Controllers
         // POST: Address/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can delete address")]
         public async Task<ActionResult> DeleteConfirmed(long id)
         {
             Address address = await db.Address.FindAsync(id);

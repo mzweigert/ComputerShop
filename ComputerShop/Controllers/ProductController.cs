@@ -11,7 +11,6 @@ using ComputerShop.Models;
 using ComputerShop.Validators;
 using ComputerShop.Managers;
 using Microsoft.AspNet.Identity.Owin;
-using System.Transactions;
 using Microsoft.AspNet.Identity;
 namespace ComputerShop.Controllers
 {
@@ -164,9 +163,13 @@ namespace ComputerShop.Controllers
         [HttpPost, ActionName("Buy")]
         [ValidateAntiForgeryToken]
         [AuthorizeWithMessage(Roles = "Admin, User", ErrorMessage = "If u want buy this product you must be logged in")]
-        public async Task<ActionResult> BuyConfirmed(long idProduct, long? quantity)
+        public async Task<ActionResult> Buy(long ProductId, int? quantity)
         {
-            if(quantity == null)
+            if (db.Product.Find(ProductId) == null)
+            {
+                return View("Error");
+            }
+            if (quantity == null)
             {
                 return View("Error");
             }
@@ -175,39 +178,39 @@ namespace ComputerShop.Controllers
                 return View("Error");
             }
 
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId<long>());
-            if (user == null)
-            {
-                return View("Error");
-            }
+            long UserId = User.Identity.GetUserId<long>();
 
-            try
+            Purchase purchase = (from p in db.Purchase where
+                                 p.UserId == UserId &&
+                                 p.IsConfirmed == false
+                                 select p).FirstOrDefault();
+
+            if (purchase == null)
             {
-                using (TransactionScope ts = new TransactionScope())
+                purchase = new Purchase() { UserId = UserId, IsConfirmed = false, PurchaseDate = DateTime.Now };
+                db.Purchase.Add(purchase);
+                await db.SaveChangesAsync();
+                db.Entry(purchase).GetDatabaseValues();
+                if (purchase.Id > 0)
                 {
-                    Purchase purchase = new Purchase() { UserId = user.Id, PurchaseDate = DateTime.Now };
-                    db.Purchase.Add(purchase);
-                    db.SaveChanges();
-                    db.Entry(purchase).GetDatabaseValues();
-                    if (purchase.Id > 0)
-                    {
-                        Basket basket = new Basket() { ProductId = idProduct, PurchaseId = purchase.Id, Quantity = quantity.Value};
-                        db.Basket.Add(basket);
-                        db.SaveChanges();
-                    }
-                    ts.Complete();
-                    return RedirectToAction("Index");
+                    Basket b = new Basket() { ProductId = ProductId, PurchaseId = purchase.Id, Quantity = quantity.Value };
+                    db.Basket.Add(b);
                 }
-                    
             }
-            catch(Exception e)
+            else
             {
-                return View("Error");
+                Basket basketExist = await db.Basket.FindAsync(purchase.Id, ProductId);
+
+                if (basketExist != null)
+                {
+                    return RedirectToAction("Edit", "MyOrders", routeValues: new { PurchaseId = purchase.Id, ProductId = ProductId });
+                }
+                basketExist = new Basket() { ProductId = ProductId, PurchaseId = purchase.Id, Quantity = quantity.Value };
+                db.Basket.Add(basketExist);
             }
-
-            
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index", "MyOrders");
         }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

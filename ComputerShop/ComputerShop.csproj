@@ -203,8 +203,10 @@
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MyPurchasesController.cs" />
+    <Compile Include="Controllers\MyOrdersController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\PurchaseController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DecimalModelBinder.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -215,7 +217,6 @@
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MyPurchases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\AuthorizeWithMessage.cs" />
@@ -313,18 +314,29 @@
     <Content Include="Views\Product\Buy.cshtml" />
     <Content Include="Views\Shared\_ProductOptions.cshtml" />
     <Content Include="Views\Shared\ShortDate.cshtml" />
+    <Content Include="Views\Manage\AddAddress.cshtml" />
+    <Content Include="Views\Manage\EditAddress.cshtml" />
+    <Content Include="Views\Shared\_AddressFormLayout.cshtml" />
+    <Content Include="Views\Purchase\Create.cshtml" />
+    <Content Include="Views\Purchase\Delete.cshtml" />
+    <Content Include="Views\Purchase\Details.cshtml" />
+    <Content Include="Views\Purchase\Edit.cshtml" />
+    <Content Include="Views\Purchase\Index.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\MyOrders\Index.cshtml" />
     <Content Include="Views\Address\Create.cshtml" />
     <Content Include="Views\Address\Delete.cshtml" />
     <Content Include="Views\Address\Details.cshtml" />
     <Content Include="Views\Address\Edit.cshtml" />
     <Content Include="Views\Address\Index.cshtml" />
-    <Content Include="Views\Manage\AddAddress.cshtml" />
-    <Content Include="Views\Manage\EditAddress.cshtml" />
-    <Content Include="Views\Shared\_AddressFormLayout.cshtml" />
+    <Content Include="Views\MyOrders\Delete.cshtml" />
+    <Content Include="Views\MyOrders\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\MyPurchase\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

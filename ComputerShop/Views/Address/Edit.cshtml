@@ -16,8 +16,53 @@
     	@using (Html.BeginForm())
     	{
     		@Html.AntiForgeryToken()
-            {Html.RenderPartial("_AddressFormLayout", Model);}
-        }
+        
+    		<div class="form-horizontal">
+    			<h2>Address</h2>
+    
+    			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    			@Html.HiddenFor(model => model.UserId)
+    
+    			<div class="form-group">
+    				@Html.LabelFor(model => model.Street)
+                
+    				@Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+    			</div>
+    	
+    
+    			<div class="form-group">
+    				@Html.LabelFor(model => model.City)
+                
+    				@Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+    			</div>
+    	
+    
+    			<div class="form-group">
+    				@Html.LabelFor(model => model.Number)
+                
+    				@Html.EditorFor(model => model.Number, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+    			</div>
+    	
+    
+    			<div class="form-group">
+    				@Html.LabelFor(model => model.ZipCode)
+                
+    				@Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
+    				@Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
+    			</div>
+    	
+    
+    			<div class="form-group">
+    				<input type="submit" value="Save" class="btn btn-default" />
+    			</div>    
+    			
+    
+    			
+    		</div>
+    	}
     		<div>
     			@Html.ActionLink("Back to List", "Index")
     		</div>

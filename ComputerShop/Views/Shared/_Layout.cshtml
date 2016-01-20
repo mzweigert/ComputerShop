@@ -18,46 +18,47 @@
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                @if (!User.IsInRole("Admin"))
-                {
-                    <li>@Html.ActionLink("All Products", "Index", "Product")</li>
-                }       
-                @if (Request.IsAuthenticated)
-                {
-                    <li>@Html.ActionLink("My Purchases", "Index", "MyPurchases")</li>
-                }
-            </ul>
-            <div class="col-sm-3 col-md-3">
-                @using (Html.BeginForm("Search", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "navbar-form", role = "form" }))
-                {
-                    <div class="input-group navbar-searchbox">
-                        <input type="text" id="search-text" class="form-control" placeholder="Search product" name="phrase">
-                        <span class="input-group-btn">
-                            <input type="submit" id="search-btn" value="Search" class="btn btn-default" />
-                        </span>
-
-                    </div>
-                }
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="alert alert-danger alert-phrase fade">
-                    <strong>Phrase must have minimum 3 characters!</strong>
-                </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("All Products", "Index", "Product")</li>
+                    }
+                    @if (Request.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink("My Orders", "Index", "MyOrders")</li>
+                    }
+                    <li>
+                        @using (Html.BeginForm("Search", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Get, new { @class = "navbar-form", role = "form" }))
+                        {
+                            <div class="input-group navbar-searchbox">
+                                <input type="text" id="search-text" class="form-control" placeholder="Search product" name="phrase">
+                                <span class="input-group-btn">
+                                    <input type="submit" id="search-btn" value="Search" class="btn btn-default" />
+                                </span>
+                            </div>
+                        }
+                    </li>
+                    <li>
+                        <div class="alert alert-danger alert-phrase fade">
+                            <strong>Phrase must have minimum 3 characters!</strong>
+                        </div>
+                    </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
             </div>
-            @Html.Partial("_LoginPartial")
         </div>
     </div>
     <div class="container body-content">
