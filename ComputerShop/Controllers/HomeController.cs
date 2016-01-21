@@ -42,7 +42,9 @@ namespace ComputerShop.Controllers
            if (phrase != null)
                 using (var context = new ApplicationDbContext())
                 {
-                    var products = from m in context.Product where m.ProductType.Contains(phrase) select m;
+                    var products = from m in context.Product
+                                   where m.ProductType.Contains(phrase) || 
+                                   m.ProductName.Contains(phrase) select m;
                     
                     return View(products.ToList());
                 }

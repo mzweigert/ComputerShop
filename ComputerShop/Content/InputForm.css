@@ -1,0 +1,16 @@
+﻿.jumbotron
+{
+    
+    margin-left:auto;
+    margin-right:auto;
+    width:40%;
+
+}
+.form-group .form-control
+{
+    float: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5%;
+   
+}

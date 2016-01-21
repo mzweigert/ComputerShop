@@ -250,6 +250,18 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="CodeTemplates\MvcControllerWithContext\Controller.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Create.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Delete.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Details.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Edit.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Empty.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\Imports.include.t4" />
+    <Content Include="CodeTemplates\MvcView\List.cs.t4" />
+    <Content Include="CodeTemplates\MvcView\ModelMetadataFunctions.cs.include.t4" />
+    <None Include="Properties\PublishProfiles\computershop - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\computershop - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\VS-MFI - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
@@ -318,8 +330,6 @@
     <Content Include="Views\Manage\EditAddress.cshtml" />
     <Content Include="Views\Shared\_AddressFormLayout.cshtml" />
     <Content Include="Views\Purchase\Create.cshtml" />
-    <Content Include="Views\Purchase\Delete.cshtml" />
-    <Content Include="Views\Purchase\Details.cshtml" />
     <Content Include="Views\Purchase\Edit.cshtml" />
     <Content Include="Views\Purchase\Index.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
@@ -333,6 +343,8 @@
     <Content Include="Views\Address\Edit.cshtml" />
     <Content Include="Views\Address\Index.cshtml" />
     <Content Include="Views\MyOrders\Delete.cshtml" />
+    <Content Include="Views\Purchase\Details.cshtml" />
+    <Content Include="Views\Purchase\Delete.cshtml" />
     <Content Include="Views\MyOrders\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>

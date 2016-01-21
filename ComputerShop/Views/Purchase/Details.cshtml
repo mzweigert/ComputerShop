@@ -1,0 +1,65 @@
+﻿@model ComputerShop.Models.Purchase
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h2>Purchase</h2>
+    		<table class="table table-bordered">
+    			<tbody>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.User.Email)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.User.Email)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Id)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Id)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.UserId)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.UserId)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.PurchaseDate)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.PurchaseDate)
+    					</td>
+        			</tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.IsConfirmed)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.IsConfirmed)
+    					</td>
+        			</tr>
+    			</tbody>
+    		</table>
+    		<p>
+    			@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    			@Html.ActionLink("Back to List", "Index")
+    		</p>
+    	</div>
+	
+</body>
+</html>

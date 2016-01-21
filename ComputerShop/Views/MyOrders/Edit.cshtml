@@ -1,0 +1,75 @@
+﻿@model ComputerShop.Models.Basket
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Edit</title>
+</head>
+<body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <div class="jumbotron text-center">
+
+        <h3>Purchase</h3>
+
+        <table class="table table-bordered">
+            <tbody>
+
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Product.ProductName)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Product.ProductName)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Product.ProductType)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Product.ProductType)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Product.Price)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Product.Price)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>@Html.DisplayNameFor(model => model.Product.ProductionDate)</strong>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Product.ProductionDate)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        @using (Html.BeginForm("Edit", "MyOrders", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("PurchaseId", Model.PurchaseId)
+            @Html.Hidden("ProductId", Model.ProductId)
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity)
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Edit" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>
