@@ -16,7 +16,7 @@ using ComputerShop.Validators;
 
 namespace ComputerShop.Controllers
 {
-    [AuthorizeWithMessage(ErrorMessage = "You must be logged in")]
+    [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
