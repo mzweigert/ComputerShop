@@ -9,10 +9,11 @@ using Microsoft.Owin.Security;
 using ComputerShop.Models;
 using ComputerShop.Managers;
 using System.Data.Entity;
+using ComputerShop.Validators;
 
 namespace ComputerShop.Controllers
 {
-    [Authorize]
+    [AuthorizeWithMessage(ErrorMessage = "You must be logged in")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

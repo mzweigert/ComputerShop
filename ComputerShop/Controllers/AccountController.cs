@@ -12,10 +12,11 @@ using ComputerShop.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ComputerShop.Managers;
 using System.Web.UI;
+using ComputerShop.Validators;
 
 namespace ComputerShop.Controllers
 {
-    [Authorize]
+    [AuthorizeWithMessage(ErrorMessage = "You must be logged in")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

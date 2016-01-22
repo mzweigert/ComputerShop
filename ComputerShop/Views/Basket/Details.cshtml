@@ -1,0 +1,82 @@
+﻿@model ComputerShop.Models.Basket
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	@Styles.Render("~/Content/InputForm.css")
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    	<div class="jumbotron text-center">
+    		<h2>Basket</h2>
+    		<table class="table table-bordered">
+    			<tbody>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.PurchaseId)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.PurchaseId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.ProductId)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.ProductId)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Quantity)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Quantity)
+                        </td>
+                    </tr>
+    				<tr>
+    					<td>
+    						<strong>@Html.DisplayNameFor(model => model.Product.ProductName)</strong>
+    					</td>
+    					<td>
+    						@Html.DisplayFor(model => model.Product.ProductName)
+    					</td>
+        			</tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Product.ProductType)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Product.ProductType)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayName(("Username"))</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Purchase.User.UserName)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>@Html.DisplayNameFor(model => model.Purchase.User.Email)</strong>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Purchase.User.Email)
+                        </td>
+                    </tr>
+                    
+    			</tbody>
+    		</table>
+    		<p>
+    			@Html.ActionLink("Edit", "Edit", new { PurchaseId = Model.PurchaseId, ProductId = Model.ProductId }) |
+    			@Html.ActionLink("Back to List", "Index")
+    		</p>
+    	</div>
+	
+</body>
+</html>

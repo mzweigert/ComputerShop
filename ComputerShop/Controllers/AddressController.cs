@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using ComputerShop.Models;
 using Microsoft.AspNet.Identity;
+using ComputerShop.Validators;
 
 namespace ComputerShop.Controllers
 {
+    [AuthorizeWithMessage(Roles = "Admin", ErrorMessage = "Only admin can be here")]
     public class AddressController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
